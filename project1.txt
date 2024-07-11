@@ -1,0 +1,94 @@
+create table Students (
+Student_id int primary key identity(1,1),
+First_name varchar(50) NOT NULL,
+last_name varchar(50) NOT NULL,
+Date_of_birth DATE,
+Address NVARCHAR(50) NOT NULL,
+Email NVARCHAR(50) NOT NULL,
+Phone NVARCHAR(20) NOT NULL,
+)
+
+insert into students values('bhargav','teja','2000-04-14','2-37/1 kadapa','bhargav12@gmail.com',8965427895)
+insert into students values('mahesh','babu','1999-08-15','1-9 dharmanagar vizag','mahesh89@gmail.com',7896542245)
+insert into students values('ram','raju','1996-09-15','7-5 rajnagar srikakluam','ramraju6@gmail.com',6705624318)
+insert into students values('naveen','teja','2001-06-18','8-54 kirnagar nellore','naveen67@gmail.com',6459052977)
+insert into students values('raju','seri','1997-07-12','8-567 durganagar chittor','raju7896@gmail.com',6795432071)
+select * from Students
+
+create table Courses (
+Courses_id int primary key identity(1,1),
+Courses_name varchar(50) NOT NULL,
+Instructor_name varchar(50) NOT NULL
+)
+
+insert into Courses values('pyhton','pradeep')
+insert into Courses values('java','jayasree')
+insert into Courses values('.net','rupesh')
+insert into Courses values('javascript','Tarak')
+insert into Courses values('Embeded','Abhi')
+
+select * from Courses
+
+create table Enrolments(
+Enrolment_id int primary key identity(1,1),
+Enrolment_date DATE NOT NULL,
+Student_id int,
+FOREIGN KEY (Student_id) REFERENCES STUDENTS(Student_id)ON DELETE CASCADE,
+Courses_id int,
+FOREIGN KEY (Courses_id) REFERENCES Courses(Courses_id)ON DELETE CASCADE
+
+)
+
+insert into Enrolments values('2024-07-18',1,1)
+insert into Enrolments values('2024-06-28',2,2)
+insert into Enrolments values('2024-07-12',3,3)
+insert into Enrolments values('2024-06-05',4,4)
+insert into Enrolments values('2024-08-01',5,5)
+select * from Enrolments
+
+create table Grades(
+Grade_id int primary key identity(1,1),
+Status VARCHAR(20) CHECK (Status IN ('A','B','C'))  --CHECK constraint
+DEFAULT 'F', --DEFAULT VALUE 
+Grade_date DATE NOT NULL,
+Student_id int,
+FOREIGN KEY (Student_id) REFERENCES STUDENTS(Student_id),
+Courses_id int,
+FOREIGN KEY (Courses_id) REFERENCES Courses(Courses_id)
+)
+
+insert into Grades values('A','2024-07-12',1,1)
+insert into Grades values('B','2024-07-12',2,2)
+insert into Grades values('C','2024-07-12',3,3)
+insert into Grades values('A','2024-07-12',4,4)
+insert into Grades values('B','2024-07-12',5,5)
+select * from Grades
+
+create table Attendance (
+Attendance_id int primary key identity(1,1),
+Attendance_date DATE NOT NULL,
+Status VARCHAR (20) CHECK (Status IN ('Present','Absent')),
+Student_id int FOREIGN KEY REFERENCES Students(Student_id),
+Courses_id int FOREIGN KEY REFERENCES Courses(Courses_id)
+)
+
+insert into Attendance values('12-07-2024','Present',1,1)
+insert into Attendance values('12-07-2024','Present',2,2)
+insert into Attendance values('12-07-2024','Absent',3,3)
+insert into Attendance values('12-07-2024','Present',4,4)
+insert into Attendance values('12-07-2024','Absent',5,5)
+select * from Attendance
+
+create table Fees (
+Fee_id int primary key NOT NULL,
+Amount decimal(12,2),
+Payment_date DATE NOT NULL,
+Student_id int FOREIGN KEY REFERENCES Students(Student_id),
+
+)
+insert into Fees values(145,'16780.43','2024-02-01',1)
+insert into Fees values(146,'22678.90','2024-02-08',2)
+insert into Fees values(147,'23890.98','2024-01-28',3)
+insert into Fees values(148,'78954.78','2024-01-22',4)
+insert into Fees values(149,'56794.22','2024-02-10',5)
+select * from Fees
