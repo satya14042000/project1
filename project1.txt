@@ -4,7 +4,7 @@ First_name varchar(50) NOT NULL,
 last_name varchar(50) NOT NULL,
 Date_of_birth DATE,
 Address NVARCHAR(50) NOT NULL,
-Email NVARCHAR(50) NOT NULL,
+Email NVARCHAR(50) NOT NULL UNIQUE,
 Phone NVARCHAR(20) NOT NULL,
 )
 
